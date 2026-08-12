@@ -4,6 +4,8 @@
   const els = {
     masterToggle: document.getElementById('masterToggle'),
     masterStatus: document.getElementById('masterStatus'),
+    themeToggle: document.getElementById('themeToggle'),
+    themeIcon: document.getElementById('themeIcon'),
     calcToggle: document.getElementById('calcToggle'),
     symbolsToggle: document.getElementById('symbolsToggle'),
     bracketsToggle: document.getElementById('bracketsToggle'),
@@ -15,12 +17,39 @@
     app: document.getElementById('app')
   };
 
+  const darkMedia = window.matchMedia('(prefers-color-scheme: dark)');
+
   let settings = inkCloneDefaults();
   let saveTimer = null;
+
+  function resolveTheme() {
+    if (settings.theme === 'light' || settings.theme === 'dark') return settings.theme;
+    return darkMedia.matches ? 'dark' : 'light';
+  }
+
+  const SUN_ICON =
+    '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg>';
+  const MOON_ICON =
+    '<svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M20.7 14.9A9 9 0 1 1 9.1 3.3a7 7 0 0 0 11.6 11.6z"/></svg>';
+
+  function applyTheme() {
+    const resolved = resolveTheme();
+    document.documentElement.setAttribute('data-theme', resolved);
+    els.themeIcon.innerHTML = resolved === 'dark' ? MOON_ICON : SUN_ICON;
+  }
+
+  darkMedia.addEventListener('change', () => {
+    if (settings.theme === 'system') applyTheme();
+  });
+
+  // Best-effort early paint using the OS preference, before settings finish loading.
+  document.documentElement.setAttribute('data-theme', darkMedia.matches ? 'dark' : 'light');
+  els.themeIcon.innerHTML = darkMedia.matches ? MOON_ICON : SUN_ICON;
 
   function load() {
     chrome.storage.sync.get(INK_STORAGE_KEY, (data) => {
       settings = inkNormalizeSettings(data ? data[INK_STORAGE_KEY] : null);
+      applyTheme();
       render();
     });
   }
@@ -42,7 +71,7 @@
 
   function setMasterUI() {
     els.masterToggle.checked = settings.enabled;
-    els.masterStatus.textContent = settings.enabled ? '켜짐' : '꺼짐';
+    els.masterStatus.textContent = settings.enabled ? 'SYSTEM ON' : 'SYSTEM OFF';
     els.app.classList.toggle('disabled', !settings.enabled);
   }
 
@@ -187,6 +216,12 @@
   });
   els.customToggle.addEventListener('change', () => {
     settings.custom.enabled = els.customToggle.checked;
+    scheduleSave();
+  });
+
+  els.themeToggle.addEventListener('click', () => {
+    settings.theme = resolveTheme() === 'dark' ? 'light' : 'dark';
+    applyTheme();
     scheduleSave();
   });
 

@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
-"""Generates simple PNG icons for the extension (purple rounded square with 3 white dots)."""
+"""Generates simple PNG icons for the extension (green rounded square with 3 white dots)."""
 import struct
 import zlib
 import os
 
 OUT_DIR = os.path.join(os.path.dirname(__file__), "..", "icons")
 
-BG = (108, 92, 231)  # purple
+BG = (63, 163, 77)  # accent green, matches popup light-mode accent
 FG = (255, 255, 255)
 
 

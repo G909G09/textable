@@ -3,59 +3,78 @@
 <head>
 <meta charset="UTF-8" />
 <title>텍스트 자동 변환기</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/galmuri/dist/galmuri.css" />
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="popup.css" />
 </head>
 <body>
-  <header class="app-header">
-    <div class="brand">
-      <img src="../icons/icon32.png" alt="" width="28" height="28" />
-      <div>
-        <div class="brand-title">텍스트 자동 변환기</div>
-        <div class="brand-sub" id="masterStatus">켜짐</div>
-      </div>
+  <header class="masthead">
+    <div class="mast-left">
+      <h1><img src="../icons/icon32.png" class="mast-icon" alt="" width="22" height="22" />텍스트 자동 변환기</h1>
+      <div class="mast-status"><span id="masterStatus">SYSTEM ON</span></div>
     </div>
-    <label class="switch switch-lg">
-      <input type="checkbox" id="masterToggle" />
-      <span class="slider"></span>
-    </label>
+    <div class="mast-right">
+      <button class="theme-toggle" id="themeToggle" type="button" title="라이트/다크 모드 전환" aria-label="라이트/다크 모드 전환">
+        <span id="themeIcon" aria-hidden="true">●</span>
+      </button>
+      <label class="switch switch-lg">
+        <input type="checkbox" id="masterToggle" />
+        <span class="slider"></span>
+      </label>
+    </div>
   </header>
+  <div class="ruler"></div>
 
   <main id="app">
-    <section class="panel" data-section="calc">
-      <div class="panel-head">
-        <span class="panel-title">CALC <em>수식 계산</em></span>
+    <section class="filepanel" data-section="calc">
+      <div class="filehead">
+        <span class="eyebrow">01</span>
+        <h2>CALC</h2>
+        <span class="grow"></span>
         <label class="switch"><input type="checkbox" id="calcToggle" /><span class="slider"></span></label>
       </div>
-      <p class="panel-desc"><code>!수식!</code> 값 — 닫는 <code>!</code> 입력 시 계산됩니다. 예) <code>!12*3!</code> → <code>36</code></p>
+      <p class="panel-desc">수식 계산 — <code>!수식!</code> 형태로 입력, 닫는 <code>!</code> 입력 시 계산됩니다. 예) <code>!12*3!</code> → <code>36</code></p>
     </section>
 
-    <section class="panel" data-section="symbols">
-      <div class="panel-head">
-        <span class="panel-title">SYMBOLS <em>기호 변환</em></span>
+    <section class="filepanel" data-section="symbols">
+      <div class="filehead">
+        <span class="eyebrow">02</span>
+        <h2>SYMBOLS</h2>
+        <span class="grow"></span>
         <label class="switch"><input type="checkbox" id="symbolsToggle" /><span class="slider"></span></label>
       </div>
+      <p class="panel-desc">기호 변환</p>
       <div class="rule-list" id="symbolsList"></div>
     </section>
 
-    <section class="panel" data-section="brackets">
-      <div class="panel-head">
-        <span class="panel-title">BRACKETS <em>괄호</em></span>
+    <section class="filepanel" data-section="brackets">
+      <div class="filehead">
+        <span class="eyebrow">03</span>
+        <h2>BRACKETS</h2>
+        <span class="grow"></span>
         <label class="switch"><input type="checkbox" id="bracketsToggle" /><span class="slider"></span></label>
       </div>
-      <p class="panel-desc">단축키(트리거)는 직접 수정할 수 있습니다.</p>
+      <p class="panel-desc">괄호 변환 — 트리거(단축키)는 직접 수정할 수 있습니다.</p>
       <div class="rule-list" id="bracketsList"></div>
     </section>
 
-    <section class="panel" data-section="custom">
-      <div class="panel-head">
-        <span class="panel-title">CUSTOM <em>나의 변환 규칙</em></span>
+    <section class="filepanel" data-section="custom">
+      <div class="filehead">
+        <span class="eyebrow">04</span>
+        <h2>CUSTOM</h2>
+        <span class="grow"></span>
         <label class="switch"><input type="checkbox" id="customToggle" /><span class="slider"></span></label>
       </div>
+      <p class="panel-desc">나의 변환 규칙 — 최대 30개</p>
       <div class="custom-list" id="customList"></div>
     </section>
   </main>
 
+  <div class="intro-tickline"></div>
   <footer class="app-footer">
+    <span class="foot-tag">v1.0</span>
     <span id="saveStatus" role="status"></span>
   </footer>
 
