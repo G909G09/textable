@@ -1,0 +1,271 @@
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 380px;
+  background: #1b1b1f;
+  color: #f0f0f4;
+  font-family: -apple-system, "Apple SD Gothic Neo", "Segoe UI", "Malgun Gothic", sans-serif;
+  font-size: 13px;
+}
+
+body {
+  max-height: 600px;
+  display: flex;
+  flex-direction: column;
+}
+
+code {
+  background: #2a2a31;
+  border-radius: 4px;
+  padding: 1px 5px;
+  font-family: "SFMono-Regular", Consolas, monospace;
+  font-size: 11px;
+  color: #c9c2ff;
+}
+
+.app-header {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  background: #221f2e;
+  border-bottom: 1px solid #322f3d;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.brand img {
+  border-radius: 8px;
+}
+
+.brand-title {
+  font-weight: 700;
+  font-size: 14px;
+  color: #ffffff;
+}
+
+.brand-sub {
+  font-size: 11px;
+  color: #8f8ba3;
+  margin-top: 1px;
+}
+
+main#app {
+  overflow-y: auto;
+  flex: 1;
+}
+
+main#app.disabled {
+  opacity: 0.45;
+  pointer-events: none;
+}
+
+.panel {
+  padding: 12px 16px;
+  border-bottom: 1px solid #29262f;
+}
+
+.panel-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.panel-title {
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: #b9a6ff;
+  text-transform: uppercase;
+}
+
+.panel-title em {
+  font-style: normal;
+  font-weight: 500;
+  color: #d8d3e6;
+  text-transform: none;
+  margin-left: 6px;
+  font-size: 12px;
+}
+
+.panel-desc {
+  margin: 8px 0 0;
+  color: #8f8ba3;
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.rule-list {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.rule-row {
+  display: grid;
+  grid-template-columns: 46px 16px 28px 1fr 34px;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 8px;
+  background: #232028;
+  border-radius: 8px;
+}
+
+.rule-trigger,
+.rule-trigger-input {
+  font-family: "SFMono-Regular", Consolas, monospace;
+  font-size: 12px;
+  color: #eae6f7;
+}
+
+.rule-trigger-input {
+  width: 46px;
+  background: #1b1922;
+  border: 1px solid #3a3646;
+  border-radius: 5px;
+  color: #eae6f7;
+  padding: 3px 5px;
+}
+
+.rule-arrow {
+  color: #6f6a80;
+  font-size: 10px;
+  text-align: center;
+}
+
+.rule-replace {
+  font-size: 15px;
+  text-align: center;
+  color: #c9c2ff;
+}
+
+.rule-label {
+  color: #cfcbdb;
+  font-size: 12px;
+}
+
+.custom-list {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  max-height: 300px;
+  overflow-y: auto;
+  padding-right: 2px;
+}
+
+.custom-row {
+  display: grid;
+  grid-template-columns: 20px 1fr 14px 1.7fr 34px;
+  align-items: center;
+  gap: 6px;
+}
+
+.custom-index {
+  font-size: 10px;
+  color: #6f6a80;
+  text-align: right;
+}
+
+.custom-trigger,
+.custom-replace {
+  background: #232028;
+  border: 1px solid #322f3d;
+  border-radius: 6px;
+  color: #eae6f7;
+  padding: 5px 7px;
+  font-size: 12px;
+  min-width: 0;
+}
+
+.custom-trigger::placeholder,
+.custom-replace::placeholder {
+  color: #55506a;
+}
+
+.custom-trigger:focus,
+.custom-replace:focus,
+.rule-trigger-input:focus {
+  outline: none;
+  border-color: #7c5cff;
+}
+
+/* toggle switch */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 30px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.switch .slider {
+  position: absolute;
+  cursor: pointer;
+  inset: 0;
+  background: #3a3646;
+  border-radius: 999px;
+  transition: background 0.15s ease;
+}
+
+.switch .slider::before {
+  content: "";
+  position: absolute;
+  height: 14px;
+  width: 14px;
+  left: 2px;
+  top: 2px;
+  background: #f0f0f4;
+  border-radius: 50%;
+  transition: transform 0.15s ease;
+}
+
+.switch input:checked + .slider {
+  background: #7c5cff;
+}
+
+.switch input:checked + .slider::before {
+  transform: translateX(12px);
+}
+
+.switch-lg {
+  width: 40px;
+  height: 22px;
+}
+
+.switch-lg .slider::before {
+  height: 18px;
+  width: 18px;
+}
+
+.switch-lg input:checked + .slider::before {
+  transform: translateX(18px);
+}
+
+.app-footer {
+  padding: 6px 16px;
+  text-align: right;
+  font-size: 11px;
+  color: #6f6a80;
+  min-height: 22px;
+  background: #221f2e;
+  border-top: 1px solid #322f3d;
+}
